@@ -266,7 +266,7 @@ vacuumdb --all --analyze-in-stages
 <p>&#8211;configure</p>
 <div class="highlight-sh"><div class="highlight"><pre>hostxx-bdbdb.edslab.it
 
-sh bin/TC_srvctl.sh --config --type producer --node weby --host hostxx-adbdb --port 5434 --user statusr --passwd statpwd --db weby -rhost hostxx-bdbdb --ruser postgres --rpasswd grespost -rport 5432
+sh bin/TC_srvctl.sh --config --type producer --node weby --host hostxx-adbdb --port 5434 --user replusr --passwd replpwd --db weby -rhost hostxx-bdbdb --ruser postgres --rpasswd xxxxx -rport 5432
 </pre></div>
 </div>
 <p>&#8211;setup producer</p>
@@ -292,8 +292,8 @@ rdb_weby_bdr | rdblogdec | logical | 33403 | weby | f | f | | | 26118 | 0/76D984
 <div class="highlight-sh"><div class="highlight"><pre>weby-# ;
 ddl_id | wal_lsn | wal_txid | ddl_user | ddl_object | ddl_type | ddl_command | creation_timestamp
 --------+-----------+----------+----------+---------------------+----------+-------------+-------------------------------
-1 | 0/76CD1E0 | 25992 | statusr | weby | MASTER | CREATE NODE | 2021-03-17 16:00:54.089933+01
--1 | 0/76D9A68 | 26120 | statusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-17 16:09:18.436825+01
+1 | 0/76CD1E0 | 25992 | replusr | weby | MASTER | CREATE NODE | 2021-03-17 16:00:54.089933+01
+-1 | 0/76D9A68 | 26120 | replusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-17 16:09:18.436825+01
 </pre></div>
 </div>
 <p>&#8211;Primary DB RDB</p>
@@ -358,7 +358,7 @@ weby_publ_webx | pgoutput | logical | 158418762 | rdb_db__weby | f | t | 6353 | 
 webx-# ;
 ddl_id | wal_lsn | wal_txid | ddl_user | ddl_object | ddl_type | ddl_command | creation_timestamp
 --------+---------------+------------+----------+---------------------+----------+-------------+-------------------------------
--1 | 150/C3200920 | 2398631719 | statusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-17 16:02:00.505278+01
+-1 | 150/C3200920 | 2398631719 | replusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-17 16:02:00.505278+01
 48 | 150/C320BAF0 | 11211039 | postgres | webx&lt;-weby | SLAVE | CREATE NODE | 2021-03-17 16:02:00.518704+01
 </pre></div>
 </div>
@@ -451,14 +451,14 @@ db webx
 host hostxx-adbdb.edslab.it
 port 5433
 user postgres
-<span class="nb">pwd </span>grespost
+<span class="nb">pwd </span>xxxxx
 RDB database:
 rnode null
 rdb rdb_db__webx
 rhost hostxx-bdbdb.edslab.it
 rport 5433
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 Thu Mar 18 13:59:21 UTC 2021
 ---------- Show ReplSrvr <span class="k">for </span>node webx ----------
 Check Schema _rdb_bdr exist on db rdb_db__webx :true
@@ -477,15 +477,15 @@ node weby
 db weby
 host hostxx-adbdb
 port 5434
-user statusr
-<span class="nb">pwd </span>statpwd
+user replusr
+<span class="nb">pwd </span>replpwd
 RDB database:
 rnode null
 rdb rdb_db__weby
 rhost hostxx-bdbdb
 rport 5432
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 Thu Mar 18 14:00:32 UTC 2021
 ---------- Show ReplSrvr <span class="k">for </span>node weby ----------
 Check Schema _rdb_bdr exist on db rdb_db__weby :true
@@ -544,7 +544,7 @@ Node weby not running
 </pre></div>
 </div>
 <p>Other examples</p>
-<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>1054<span class="o">)</span><span class="nv">$ </span>sh bin/TC_srvctl.sh --config --type consumer --node weby --host hostxx-adbdb --port 5434 --user statusr --passwd statpwd --db weby -rhost hostxx-bdbdb --ruser postgres --rpasswd grespost -rport 5432
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>1054<span class="o">)</span><span class="nv">$ </span>sh bin/TC_srvctl.sh --config --type consumer --node weby --host hostxx-adbdb --port 5434 --user replusr --passwd replpwd --db weby -rhost hostxx-bdbdb --ruser postgres --rpasswd xxxxx -rport 5432
 Launching..
 rdbbdrconf:/var/lib/pgsql/scripts/mycode/tcrepsrv-dev/conf/weby_bdr_rdb.conf
 <span class="o">[</span> 16:02:11 Thu Mar 18 <span class="o">]</span> <span class="o">[</span> postgres@hostxx-bdbdb.edslab.it <span class="o">]</span> <span class="o">[</span> ~/scripts/mycode/tcrepsrv-dev <span class="o">]</span>
@@ -557,15 +557,15 @@ node weby
 db weby
 host hostxx-adbdb
 port 5434
-user statusr
-<span class="nb">pwd </span>statpwd
+user replusr
+<span class="nb">pwd </span>replpwd
 RDB database:
 rnode null
 rdb rdb_db__weby
 rhost hostxx-bdbdb
 rport 5432
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 Configuration file: /var/lib/pgsql/scripts/mycode/tcrepsrv-dev/conf/webx_rdb_bdr.conf review
 Primary Database:
 node webx
@@ -573,14 +573,14 @@ db webx
 host hostxx-adbdb.edslab.it
 port 5433
 user postgres
-<span class="nb">pwd </span>grespost
+<span class="nb">pwd </span>xxxxx
 RDB database:
 rnode webx
 rdb rdb_db__webx
 rhost hostxx-bdbdb.edslab.it
 rport 5433
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 &gt; Checking existance of database weby
 &lt; weby exists!
 &gt; Checking existance of database rdb_db__weby
@@ -617,14 +617,14 @@ db webx
 host hostxx-adbdb.edslab.it
 port 5433
 user postgres
-<span class="nb">pwd </span>grespost
+<span class="nb">pwd </span>xxxxx
 RDB database:
 rnode null
 rdb rdb_db__webx
 rhost hostxx-bdbdb.edslab.it
 rport 5433
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 Thu Mar 18 15:24:30 UTC 2021
 ---------- Show ReplSrvr <span class="k">for </span>node webx ----------
 Check Schema _rdb_bdr exist on db rdb_db__webx :true
@@ -727,14 +727,14 @@ db webx
 host hostxx-adbdb.edslab.it
 port 5433
 user postgres
-<span class="nb">pwd </span>grespost
+<span class="nb">pwd </span>xxxxx
 RDB database:
 rnode null
 rdb rdb_db__webx
 rhost hostxx-bdbdb.edslab.it
 rport 5433
 ruser postgres
-rpwd grespost
+rpwd xxxxx
 Reading Status from _rdb_bdr.tc_process
 ----------------------------------------------------------------------------------------------
 Status node webx of <span class="nb">type </span>C
@@ -861,11 +861,11 @@ Dropping replication slot :webp_publ_webx
 
 ddl_id | wal_lsn | wal_txid | ddl_user | ddl_object | ddl_type | ddl_command | creation_timestamp
 --------+---------------+------------+----------+---------------------+----------+-------------+-------------------------------
-47 | 4ADB/E5FAD780 | 2398623870 | statusr | webp | MASTER | CREATE NODE | 2021-03-08 11:10:48.330897+01
+47 | 4ADB/E5FAD780 | 2398623870 | replusr | webp | MASTER | CREATE NODE | 2021-03-08 11:10:48.330897+01
 48 | 150/C320BAF0 | 11211039 | postgres | webx&lt;-weby | SLAVE | CREATE NODE | 2021-03-17 16:02:00.518704+01
 49 | 15A/F94C5088 | 12377485 | postgres | webx | MASTER | CREATE NODE | 2021-03-18 15:56:35.807368+01
 50 | 163/77E41D70 | 13570412 | postgres | webx&lt;-webp | SLAVE | DROP NODE | 2021-03-19 15:04:08.827209+01
--1 | 163/77E8F570 | 13571618 | statusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-19 15:22:24.24918+01
+-1 | 163/77E8F570 | 13571618 | replusr | NO_ACTIVITY_LSN_ACK | DML | UPSERT | 2021-03-19 15:22:24.24918+01
 </pre></div>
 </div>
 <p>unset a producer node (cont..)</p>
@@ -928,7 +928,7 @@ To <span class="nb">complete </span>cleanup, manually execute : drop schema dba 
 
 table dba.__events_ddl;
 
-797 | 4B67/80A38000 | 2411327431 | statusr | webp | MASTER | DROP NODE | 2021-03-19 15:06:34.203928+01
+797 | 4B67/80A38000 | 2411327431 | replusr | webp | MASTER | DROP NODE | 2021-03-19 15:06:34.203928+01
 </pre></div>
 </div>
 </div>
